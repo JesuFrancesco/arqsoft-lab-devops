@@ -1,0 +1,38 @@
+name: Deploy Vite SPA to GitHub Pages
+
+on:
+  push:
+    branches:
+      - prod
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    working-directory: "./packages/frontend"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Vite project
+        run: npm run build
+        env:
+          API_URL: ${{ secrets.API_URL }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./dist
