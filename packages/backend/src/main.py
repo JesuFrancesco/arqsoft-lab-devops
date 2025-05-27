@@ -1,6 +1,7 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.database import get_driver
+from database import get_driver
 
 
 def lifespan(_: FastAPI):
@@ -55,3 +56,8 @@ async def counter_up():
 
         current_value = row[0]
         return {"counter": current_value}
+
+
+if __name__ == "__main__":
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
