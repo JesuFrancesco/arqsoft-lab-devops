@@ -18,26 +18,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Obtener el codigo fuente del repositorio
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Preparar Python en el runner
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      # Instalar dependencias del proyecto python FastApi
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests (opcional)
-        run: pytest # si tienes tests
+      # # Correr tests
+      # - name: Run tests (opcional)
+      #   run: pytest # si tienes tests
 
+      # Subir artefacto para el despliegue
       - name: Upload artifact for deployment
         run: |
           zip -r app.zip . -x '*.git*'
 
+      # Desplegar a Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:

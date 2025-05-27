@@ -16,22 +16,27 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # Obtener el codigo fuente del repositorio
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Preparar node js en el runner
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # Instalar dependencias
       - name: Install dependencies
         run: npm install
 
+      # Construir el proyecto Vite
       - name: Build Vite project
         run: npm run build
         env:
-          API_URL: ${{ secrets.API_URL }}
+          VITE_API_URL: ${{ secrets.API_URL }}
 
+      # Despliegue a github pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
