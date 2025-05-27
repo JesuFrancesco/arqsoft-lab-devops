@@ -1,6 +1,10 @@
 import os
 from psycopg2._psycopg import connection
 from psycopg2.pool import SimpleConnectionPool
+from dotenv import load_dotenv
+
+# si hay un archivo .env, cargar las variables de entorno
+load_dotenv()
 
 _pool = SimpleConnectionPool(
     1,

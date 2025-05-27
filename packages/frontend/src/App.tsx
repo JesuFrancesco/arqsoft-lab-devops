@@ -1,38 +1,8 @@
-import { useEffect, useState } from "react";
-import { getCounter, incrementCounter } from "./service/counter.service";
 import "./App.css";
+import CounterButton from "./components/CounterButton";
+import Hero from "./components/Hero";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchCounter = async () => {
-      try {
-        const { counter } = await getCounter();
-
-        setCount(counter);
-      } catch (error) {
-        console.error("Error fetching counter:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCounter();
-  }, []);
-
-  const handleIncrementCounter = async () => {
-    try {
-      const { counter } = await incrementCounter();
-
-      setCount(counter);
-    } catch (error) {
-      console.error("Error incrementing counter:", error);
-    }
-  };
-
   return (
     <>
       <div
@@ -45,13 +15,9 @@ function App() {
           gap: "1rem",
         }}
       >
-        <div className="gradient-text">DevOps</div>
+        <Hero />
 
-        {!loading && (
-          <button type="button" onClick={handleIncrementCounter}>
-            Contador: {count}
-          </button>
-        )}
+        <CounterButton />
       </div>
     </>
   );

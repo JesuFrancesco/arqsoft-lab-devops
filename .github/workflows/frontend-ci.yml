@@ -30,6 +30,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # Correr pruebas de UI
+      - name: Run UI tests
+        run: npm run test
+
       # Construir el proyecto Vite
       - name: Build Vite project
         run: npm run build

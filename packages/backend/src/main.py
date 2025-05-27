@@ -4,12 +4,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import get_driver
 
 
+# Lifespan para manejar eventos de inicio y cierre de la aplicación
 def lifespan(_: FastAPI):
-    print("Starting up...")
+    print("Iniciando server...")
     yield
-    print("Shutting down...")
+    print("Apagando server...")
 
 
+# Crear la aplicación FastAPI
 app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
@@ -59,5 +61,4 @@ async def counter_up():
 
 
 if __name__ == "__main__":
-
     uvicorn.run(app, host="0.0.0.0", port=8000)
